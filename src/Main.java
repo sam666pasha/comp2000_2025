@@ -3,7 +3,8 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 public class Main extends JFrame {
     public static void main(String[] args) throws Exception {
       Main window = new Main();
@@ -14,6 +15,19 @@ public class Main extends JFrame {
       Stage stage = new Stage();
       public Canvas() {
         setPreferredSize(new Dimension(1024, 720));
+
+        setFocusable(true);
+addKeyListener(new KeyAdapter() {
+  @Override public void keyPressed(KeyEvent e) {
+    switch (e.getKeyCode()) {
+      case KeyEvent.VK_W: case KeyEvent.VK_UP:    stage.tryMovePlayer(0, -1); break;
+      case KeyEvent.VK_S: case KeyEvent.VK_DOWN:  stage.tryMovePlayer(0,  1); break;
+      case KeyEvent.VK_A: case KeyEvent.VK_LEFT:  stage.tryMovePlayer(-1, 0); break;
+      case KeyEvent.VK_D: case KeyEvent.VK_RIGHT: stage.tryMovePlayer(1,  0); break;
+    }
+    repaint();
+  }
+});
       }
 
       @Override
@@ -28,6 +42,7 @@ public class Main extends JFrame {
       this.setContentPane(canvas);
       this.pack();
       this.setVisible(true);
+      canvas.requestFocusInWindow();
     }
 
     public void run() {
