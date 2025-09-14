@@ -1,17 +1,28 @@
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Optional;
+import  java.util.Random;
 
 public class Grid {
   Cell[][] cells = new Cell[20][20];
   
-  public Grid() {
-    for(int i=0; i<cells.length; i++) {
-      for(int j=0; j<cells[i].length; j++) {
-        cells[i][j] = new Cell(colToLabel(i), j, 10+Cell.size*i, 10+Cell.size*j);
+ public Grid() {
+  Random rnd = new Random(42);
+  for (int i = 0; i < cells.length; i++) {
+    for (int j = 0; j < cells[i].length; j++) {
+      int roll = rnd.nextInt(100);
+      Cell cell;
+      if (roll < 15) {
+        cell = new WaterCell(colToLabel(i), j, 10 + Cell.size * i, 10 + Cell.size * j);
+      } else if (roll < 40) {
+        cell = new SandCell(colToLabel(i), j, 10 + Cell.size * i, 10 + Cell.size * j);
+      } else {
+        cell = new GrassCell(colToLabel(i), j, 10 + Cell.size * i, 10 + Cell.size * j);
       }
+      cells[i][j] = cell;
     }
   }
+}
 
   private char colToLabel(int col) {
     return (char) (col + Character.valueOf('A'));
