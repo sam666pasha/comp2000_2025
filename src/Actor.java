@@ -16,4 +16,8 @@ public abstract class Actor {
       g.drawPolygon(p);
     }
   }
+
+
+    public Cell getLoc() { return loc; }
+  public void setLoc(Cell newLoc) { this.loc = newLoc; }
 }

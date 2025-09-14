@@ -8,13 +8,16 @@ import java.util.Optional;
 public class Stage {
   Grid grid;
   List<Actor> actors;
-
+  Actor player;
   public Stage() {
     grid = new Grid();
     actors = new ArrayList<Actor>();
     actors.add(new Cat(grid.cellAtColRow(0, 0).get()));
     actors.add(new Dog(grid.cellAtColRow(0, 15).get()));
     actors.add(new Bird(grid.cellAtColRow(12, 9).get()));    
+    actors.add(new Player(grid.cellAtColRow(0, 0).get(),PlayerType.DOG));
+
+
   }
 
   public void paint(Graphics g, Point mouseLoc) {
